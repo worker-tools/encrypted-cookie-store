@@ -1,0 +1,52 @@
+{
+  "name": "@worker-tools/encrypted-cookie-store",
+  "version": "0.0.0",
+  "description": "A CookieStore implementation that transparently encrypts cookie values via Web Cryptography API",
+  "type": "module",
+  "main": "index.js",
+  "module": "index.js",
+  "files": [
+    "src",
+    "*.js*",
+    "*.d.ts*"
+  ],
+  "types": "./index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "rm -f *.d.ts *.js *.js.map *.d.ts.map",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "build": "tsc -d",
+    "prepack": "npm run clean && npm run build"
+  },
+  "author": "Florian Klampfer <mail@qwtel.com> (https://qwtel.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worker-tools/encrypted-cookie-store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/worker-tools/encrypted-cookie-store/issues"
+  },
+  "homepage": "https://github.com/worker-tools/encrypted-cookie-store#readme",
+  "keywords": [
+    "cookies",
+    "cookie-store",
+    "signed-cookies",
+    "web-crypto",
+    "web-cryptography",
+    "middleware",
+    "cloudflare",
+    "cloudflare-workers"
+  ],
+  "dependencies": {
+    "base64-encoding": "^0.14.3",
+    "cookie-store-interface": "^0.1.0",
+    "typed-array-utils": "^0.2.2",
+    "uuid-class": "^0.12.3"
+  }
+}
