@@ -1,6 +1,6 @@
 {
   "name": "@worker-tools/encrypted-cookie-store",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A CookieStore implementation that transparently encrypts cookie values via Web Cryptography API",
   "type": "module",
   "main": "index.js",
