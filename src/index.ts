@@ -13,6 +13,14 @@ const secretToUint8Array = (secret: string | BufferSource) => typeof secret === 
   ? new TextEncoder().encode(secret)
   : bufferSourceToUint8Array(secret);
 
+export interface EncryptedCookieStoreOptions {
+  /**
+   * One or more crypto keys that were previously used to encrypt cookies.
+   * `EncryptedCookieStore` will try to decrypt cookies using these, but they are not used for encrypting new cookies.
+   */
+  keyring?: readonly CryptoKey[],
+}
+
 export interface DeriveOptions {
   secret: string | BufferSource | JsonWebKey
   salt?: BufferSource
@@ -68,13 +76,13 @@ export class EncryptedCookieStore implements CookieStore {
   }
 
   #store: CookieStore;
-  #keyRing: readonly CryptoKey[];
+  #keyring: readonly CryptoKey[];
   #key: CryptoKey;
 
-  constructor(store: CookieStore, key: CryptoKey, ...keyRing: readonly CryptoKey[]) {
+  constructor(store: CookieStore, key: CryptoKey, opts: EncryptedCookieStoreOptions = {}) {
     this.#store = store;
     this.#key = key
-    this.#keyRing = [key, ...keyRing];
+    this.#keyring = [key, ...opts.keyring ?? []];
   }
 
   get(name?: string): Promise<CookieListItem | null>;
@@ -131,7 +139,7 @@ export class EncryptedCookieStore implements CookieStore {
 
   #decrypt = async (cookie: CookieListItem): Promise<CookieListItem> => {
     const errors: any[] = [];
-    for (const key of this.#keyRing) {
+    for (const key of this.#keyring) {
       try {
         const buffer = new Base64Decoder().decode(cookie.value);
         const [iv, cipher] = splitBufferSource(buffer, IV_LENGTH);
