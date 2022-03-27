@@ -14,9 +14,12 @@ const secretToUint8Array = (secret: string | BufferSource) => typeof secret === 
   : bufferSourceToUint8Array(secret);
 
 export interface DeriveOptions {
-  secret: string | BufferSource,
-  salt?: BufferSource,
-  iterations?: number,
+  secret: string | BufferSource | JsonWebKey
+  salt?: BufferSource
+  iterations?: number
+  format?: KeyFormat,
+  hash?: HashAlgorithmIdentifier;
+  length?: number,
 }
 
 /**
@@ -32,19 +35,22 @@ export class EncryptedCookieStore implements CookieStore {
   static async deriveCryptoKey(opts: DeriveOptions): Promise<CryptoKey> {
     if (!opts.secret) throw Error('Secret missing');
 
-    const passphraseKey = await crypto.subtle.importKey(
-      'raw',
-      secretToUint8Array(opts.secret),
-      'PBKDF2',
-      false,
-      ['deriveKey']
+    const passphraseKey = await (opts.format === 'jwk'
+      ? crypto.subtle.importKey('jwk', opts.secret as JsonWebKey, 'PBKDF2', false, ['deriveKey'])
+      : crypto.subtle.importKey(
+        opts.format ?? 'raw',
+        secretToUint8Array(opts.secret as string | BufferSource),
+        'PBKDF2',
+        false,
+        ['deriveKey']
+      )
     );
 
     const key = await crypto.subtle.deriveKey(
       {
         name: 'PBKDF2',
         iterations: opts.iterations ?? 999,
-        hash: 'SHA-256',
+        hash: opts.hash ?? 'SHA-256',
         salt: opts.salt
           ? bufferSourceToUint8Array(opts.salt)
           : new UUID('19fc3989-ce6a-4b4e-b626-fa2e6ef3be0c')
@@ -52,7 +58,7 @@ export class EncryptedCookieStore implements CookieStore {
       passphraseKey,
       {
         name: 'AES-GCM',
-        length: 256,
+        length: opts.length ?? 256,
       },
       false,
       ['encrypt', 'decrypt'],
@@ -124,7 +130,7 @@ export class EncryptedCookieStore implements CookieStore {
   }
 
   #decrypt = async (cookie: CookieListItem): Promise<CookieListItem> => {
-    const errors = [];
+    const errors: any[] = [];
     for (const key of this.#keyRing) {
       try {
         const buffer = new Base64Decoder().decode(cookie.value);
@@ -135,7 +141,7 @@ export class EncryptedCookieStore implements CookieStore {
         cookie.value = clearText;
         return cookie;
       } catch (err) {
-        errors.push(err)
+        errors.push(err);
       }
     }
     throw new AggregateError(errors, 'None of the provided keys was able to decrypt the cookie.');
