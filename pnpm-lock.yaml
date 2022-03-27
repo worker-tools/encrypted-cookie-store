@@ -1,0 +1,44 @@
+lockfileVersion: 5.3
+
+specifiers:
+  base64-encoding: ^0.14.3
+  cookie-store-interface: ^0.1.1
+  typed-array-utils: ^0.2.2
+  typescript: ^4.5.5
+  uuid-class: ^0.12.3
+
+dependencies:
+  base64-encoding: 0.14.3
+  cookie-store-interface: 0.1.1
+  typed-array-utils: 0.2.2
+  uuid-class: 0.12.3
+
+devDependencies:
+  typescript: 4.5.5
+
+packages:
+
+  /base64-encoding/0.14.3:
+    resolution: {integrity: sha512-/MvpDArLNYsPwwDAfDadL5OMZjWHlPIdsA8iZWN2A/p+ml6f3CtIODBxH21PdtTirKGfjjjp2CGpfGvdyGQJiQ==}
+    dev: false
+
+  /cookie-store-interface/0.1.1:
+    resolution: {integrity: sha512-fwEY2FxGL4c2YVNHuTSaxNph9whnvVs5gRMhQ2Lr33CzQJkFlRyElSo4PDvGSVnv4Ps++i17+uNI/GYAM6ciBg==}
+    dev: false
+
+  /typed-array-utils/0.2.2:
+    resolution: {integrity: sha512-xq2oNAgDAZKsmzu7KQXDe9cLKiOYZn+6h5VMzcg1BmiiGPlCxMu1mh+tiWzydfIFGdNBs8/WS78ZPkTdHhnxlg==}
+    dev: false
+
+  /typescript/4.5.5:
+    resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /uuid-class/0.12.3:
+    resolution: {integrity: sha512-3abIxjBzDw9hh7gyf6IiIctCRdYEhJiYp4KldsbLvt4aVQVIQF9xu8pLqBS44QI2qiS3F+MydAqqNqXXe0wKcw==}
+    engines: {node: '>=10'}
+    dependencies:
+      typed-array-utils: 0.2.2
+    dev: false
