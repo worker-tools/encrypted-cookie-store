@@ -4,6 +4,7 @@ import {
 import { UUID } from "uuid-class";
 import { bufferSourceToUint8Array, concatBufferSources, splitBufferSource } from "typed-array-utils";
 import { Base64Decoder, Base64Encoder } from "base64-encoding";
+import { AggregateError } from "./aggregate-error";
 
 const EXT = '.enc';
 const IV_LENGTH = 16; // bytes
@@ -61,11 +62,13 @@ export class EncryptedCookieStore implements CookieStore {
   }
 
   #store: CookieStore;
+  #keyRing: readonly CryptoKey[];
   #key: CryptoKey;
 
-  constructor(store: CookieStore, encryptionKey: CryptoKey) {
+  constructor(store: CookieStore, key: CryptoKey, ...keyRing: readonly CryptoKey[]) {
     this.#store = store;
-    this.#key = encryptionKey;
+    this.#key = key
+    this.#keyRing = [key, ...keyRing];
   }
 
   get(name?: string): Promise<CookieListItem | null>;
@@ -121,13 +124,21 @@ export class EncryptedCookieStore implements CookieStore {
   }
 
   #decrypt = async (cookie: CookieListItem): Promise<CookieListItem> => {
-    const buffer = new Base64Decoder().decode(cookie.value);
-    const [iv, cipher] = splitBufferSource(buffer, IV_LENGTH);
-    const clearBuffer = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, this.#key, cipher);
-    const clearText = new TextDecoder().decode(clearBuffer);
-    cookie.name = cookie.name.substring(0, cookie.name.length - EXT.length);
-    cookie.value = clearText;
-    return cookie;
+    const errors = [];
+    for (const key of this.#keyRing) {
+      try {
+        const buffer = new Base64Decoder().decode(cookie.value);
+        const [iv, cipher] = splitBufferSource(buffer, IV_LENGTH);
+        const clearBuffer = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, cipher);
+        const clearText = new TextDecoder().decode(clearBuffer);
+        cookie.name = cookie.name.substring(0, cookie.name.length - EXT.length);
+        cookie.value = clearText;
+        return cookie;
+      } catch (err) {
+        errors.push(err)
+      }
+    }
+    throw new AggregateError(errors, 'None of the provided keys was able to decrypt the cookie.');
   }
 
   addEventListener(...args: Parameters<CookieStore['addEventListener']>): void {
