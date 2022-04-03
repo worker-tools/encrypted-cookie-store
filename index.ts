@@ -1,10 +1,12 @@
 import { 
   CookieInit, CookieList, CookieListItem, CookieStore, CookieStoreDeleteOptions, CookieStoreGetOptions,
-} from "cookie-store-interface";
-import { UUID } from "uuid-class";
-import { bufferSourceToUint8Array, concatBufferSources, splitBufferSource } from "typed-array-utils";
-import { Base64Decoder, Base64Encoder } from "base64-encoding";
-import { AggregateError } from "./aggregate-error";
+} from 'https://esm.sh/cookie-store-interface@0.1.1/index.js';
+export * from 'https://esm.sh/cookie-store-interface@0.1.1/index.js';
+
+import { UUID } from "https://esm.sh/uuid-class@0.12.3/index.js?module";
+import { bufferSourceToUint8Array, concatBufferSources, splitBufferSource } from "https://esm.sh/typed-array-utils@0.2.2/index.js?module";
+import { Base64Decoder, Base64Encoder } from "https://esm.sh/base64-encoding@0.14.3/index.js?module";
+import { AggregateError } from "./aggregate-error.ts";
 
 const EXT = '.enc';
 const IV_LENGTH = 16; // bytes
@@ -165,5 +167,3 @@ export class EncryptedCookieStore implements CookieStore {
     return this.#store.removeEventListener(...args);
   }
 }
-
-export * from "cookie-store-interface";
