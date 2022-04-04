@@ -11,7 +11,7 @@ import {
 } from 'https://deno.land/std@0.133.0/testing/asserts.ts'
 const { test } = Deno;
 
-import { RequestCookieStore } from '../../request-cookie-store/index.ts';
+import { RequestCookieStore } from 'https://raw.githubusercontent.com/worker-tools/request-cookie-store/master/index.ts';
 import { EncryptedCookieStore } from '../index.ts'
 
 test('exists', () => {
