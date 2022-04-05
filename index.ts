@@ -5,7 +5,7 @@ export * from 'https://ghuc.cc/qwtel/cookie-store-interface/index.d.ts';
 
 import { UUID } from "https://ghuc.cc/qwtel/uuid-class/index.ts";
 import { bufferSourceToUint8Array, concatBufferSources, splitBufferSource } from "https://ghuc.cc/qwtel/typed-array-utils/index.ts";
-import { Base64Decoder, Base64Encoder } from "https://esm.sh/base64-encoding@0.14.3/index.js";
+import { Base64Decoder, Base64Encoder } from "https://ghuc.cc/qwtel/base64-encoding/index.ts";
 import { AggregateError } from "./aggregate-error.ts";
 
 const EXT = '.enc';
