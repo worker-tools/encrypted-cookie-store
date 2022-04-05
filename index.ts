@@ -1,11 +1,11 @@
 import { 
   CookieInit, CookieList, CookieListItem, CookieStore, CookieStoreDeleteOptions, CookieStoreGetOptions,
-} from 'https://esm.sh/cookie-store-interface@0.1.1/index.js';
-export * from 'https://esm.sh/cookie-store-interface@0.1.1/index.js';
+} from 'https://ghuc.cc/qwtel/cookie-store-interface/index.d.ts';
+export * from 'https://ghuc.cc/qwtel/cookie-store-interface/index.d.ts';
 
-import { UUID } from "https://esm.sh/uuid-class@0.12.3/index.js?module";
-import { bufferSourceToUint8Array, concatBufferSources, splitBufferSource } from "https://esm.sh/typed-array-utils@0.2.2/index.js?module";
-import { Base64Decoder, Base64Encoder } from "https://esm.sh/base64-encoding@0.14.3/index.js?module";
+import { UUID } from "https://ghuc.cc/qwtel/uuid-class/index.ts";
+import { bufferSourceToUint8Array, concatBufferSources, splitBufferSource } from "https://ghuc.cc/qwtel/typed-array-utils/index.ts";
+import { Base64Decoder, Base64Encoder } from "https://esm.sh/base64-encoding@0.14.3/index.js";
 import { AggregateError } from "./aggregate-error.ts";
 
 const EXT = '.enc';

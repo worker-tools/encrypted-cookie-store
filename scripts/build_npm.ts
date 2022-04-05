@@ -40,29 +40,24 @@ await build({
   packageManager: 'pnpm',
   compilerOptions: {
     sourceMap: true,
-    target: 'ES2021'
+    target: 'ES2019'
   },
   mappings: {
-    // "https://esm.sh/(@?[^@]+)@([^/]+)/(.*).js": {
-    //   name: "$1",
-    //   version: "^$2",
-    //   subPath: "$3.js",
-    // },
-    "https://esm.sh/cookie-store-interface@0.1.1/index.js": {
+    "https://ghuc.cc/qwtel/cookie-store-interface/index.d.ts": {
       name: "cookie-store-interface",
       version: "^0.1.1",
     },
-    "https://esm.sh/uuid-class@0.12.3/index.js?module": {
+    "https://ghuc.cc/qwtel/uuid-class/index.ts": {
       name: "uuid-class",
       version: "^0.12.3",
     },
-    "https://esm.sh/typed-array-utils@0.2.2/index.js?module": {
+    "https://ghuc.cc/qwtel/typed-array-utils/index.ts": {
       name: "typed-array-utils",
       version: "^0.2.2",
     },
-    "https://esm.sh/base64-encoding@0.14.3/index.js?module": {
+    "https://ghuc.cc/qwtel/base64-encoding/index.ts": {
       name: "base64-encoding",
-      version: "^0.14.3",
+      version: "^0.15.0-alpha.0",
     },
   },
 });
