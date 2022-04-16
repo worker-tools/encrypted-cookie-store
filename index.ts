@@ -1,9 +1,9 @@
-import { 
+// deno-lint-ignore-file no-explicit-any
+import type { 
   CookieInit, CookieList, CookieListItem, CookieStore, CookieStoreDeleteOptions, CookieStoreGetOptions,
 } from 'https://ghuc.cc/qwtel/cookie-store-interface/index.d.ts';
 export * from 'https://ghuc.cc/qwtel/cookie-store-interface/index.d.ts';
 
-import { UUID } from "https://ghuc.cc/qwtel/uuid-class/index.ts";
 import { bufferSourceToUint8Array, concatBufferSources, splitBufferSource } from "https://ghuc.cc/qwtel/typed-array-utils/index.ts";
 import { Base64Decoder, Base64Encoder } from "https://ghuc.cc/qwtel/base64-encoding/index.ts";
 import { AggregateError } from "./aggregate-error.ts";
@@ -63,7 +63,7 @@ export class EncryptedCookieStore implements CookieStore {
         hash: opts.hash ?? 'SHA-256',
         salt: opts.salt
           ? bufferSourceToUint8Array(opts.salt)
-          : new UUID('19fc3989-ce6a-4b4e-b626-fa2e6ef3be0c')
+          : new Base64Decoder().decode('Gfw5ic5qS062JvoubvO+DA==')
       },
       passphraseKey,
       {

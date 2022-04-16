@@ -47,10 +47,6 @@ await build({
       name: "cookie-store-interface",
       version: "^0.1.1",
     },
-    "https://ghuc.cc/qwtel/uuid-class/index.ts": {
-      name: "uuid-class",
-      version: "^0.13.0-alpha.0",
-    },
     "https://ghuc.cc/qwtel/typed-array-utils/index.ts": {
       name: "typed-array-utils",
       version: "^0.2.2",
