@@ -29,6 +29,7 @@ export interface DeriveOptions {
   iterations?: number
   format?: KeyFormat,
   hash?: HashAlgorithmIdentifier;
+  hmacHash?: HashAlgorithmIdentifier;
   length?: number,
 }
 
