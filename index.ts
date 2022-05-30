@@ -53,7 +53,7 @@ export class EncryptedCookieStore implements CookieStore {
         secretToUint8Array(opts.secret as string | BufferSource),
         'PBKDF2',
         false,
-        ['deriveKey']
+        ['deriveKey', 'deriveBits']
       )
     );
 

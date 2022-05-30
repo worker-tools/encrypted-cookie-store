@@ -5,7 +5,11 @@ that transparently encrypts and decrypts cookies via __AES-GCM__.
 This is likely only useful in server-side implementations, 
 but written in a platform-agnostic way.
 
+<br/>
+
 --------
+
+<br/>
 
 <p align="center"><a href="https://workers.tools"><img src="https://workers.tools/assets/img/logo.svg" width="100" height="100" /></a>
 <p align="center">This module is part of the Worker Tools collection<br/>⁕
